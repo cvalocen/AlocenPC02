@@ -41,7 +41,7 @@ namespace AlocenPC02.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] Supplier supplier)
         {
-            if (id != supplier.id)
+            if (id != supplier.Id)
                 return BadRequest();
 
             var result = await _supplierRepository.Update(supplier);
