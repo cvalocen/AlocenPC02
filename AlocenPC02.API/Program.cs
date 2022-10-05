@@ -1,4 +1,6 @@
+using AlocenPC02.DOMAIN.Core.Interfaces;
 using AlocenPC02.DOMAIN.Infrastructure.Data;
+using AlocenPC02.DOMAIN.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +24,10 @@ builder
     .Services
     .AddDbContext<SalesContext>
     (options => options.UseSqlServer(connectionString));
+
+//registro de la interfaz
+
+builder.Services.AddTransient<ISupplierRepository, SupplierRepository>();
 
 //==
 
