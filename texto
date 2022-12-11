@@ -1,0 +1,64 @@
+CREATE DATABASE [Caso1_20200051];
+USE [Caso1_20200051]
+GO
+
+CREATE TABLE [dbo].[login](
+	[id] [int] NOT NULL primary key,
+	[usuario] [nvarchar](50) NOT NULL,
+	[password] [nvarchar](50) NOT NULL
+)
+
+GO
+
+select * from login
+
+api//carpeta models//class login((((public int id {ge...))))//en carpeta controllers agregar controlador api en blanco (logincontroler)
+
+//  "ConnectionStrings": {
+    "DevConnection": "Server=LENOVO\\SQLEXPRESS;Database=Caso1_20200051;Integrated Security = true"
+  }
+  //
+     private readonly ILoginRepository _loginRepository;
+
+        public LoginController(ILoginRepository loginRepository)
+        {
+            _loginRepository = loginRepository;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var logins = await _loginRepository.GetLogins();
+            return Ok(logins);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetLoginById(int id)
+        {
+            var login = await _loginRepository.GetLogin(id);
+            return Ok(login);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Insert([FromBody] Login login)
+        {
+            var result = await _loginRepository.Insert(login);
+            return Ok(result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] Login login)
+        {
+            if (id != login.IdUser)
+                return BadRequest();
+
+            var result = await _loginRepository.Update(login);
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _loginRepository.Delete(id);
+            return Ok(result);
+        }
